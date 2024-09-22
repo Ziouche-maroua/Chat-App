@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "../ui/resizable";
 import { cn } from "@/lib/utils";
+import Sidebar from "../Sidebar";
+import {User} from "@/db/dummy";
 
 interface ChatLayoutProps {
   defaultLayout: number[] | undefined;
+  users: User[];
 }
 
-const ChatLayout = ({ defaultLayout = [320, 480] }: ChatLayoutProps) => {
+const ChatLayout = ({ defaultLayout = [320, 480],users }: ChatLayoutProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -55,7 +58,7 @@ const ChatLayout = ({ defaultLayout = [320, 480] }: ChatLayoutProps) => {
           isCollapsed ? "bg-[#001400] min-w-[80px]" : "bg-[#001400]" // Dark red for collapsed, dark green for expanded
         )}
       >
-        sidebar
+        <Sidebar isCollapsed={isCollapsed} users={users} />
       </ResizablePanel>
 
       <ResizableHandle withHandle />

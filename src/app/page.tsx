@@ -1,7 +1,7 @@
 import PreferencesTab from "@/components/PreferencesTab";
 import ChatLayout from "@/components/chat/chat-layout";
 import { cookies } from "next/headers";
-
+import { USERS} from "@/db/dummy";
 
 export default function Home() {
   const layout = cookies().get("react-resizable-panels:layout");
@@ -27,7 +27,7 @@ export default function Home() {
 
 
 <div className='z-10 border rounded-lg max-w-5xl w-full min-h-[85vh] text-sm lg:flex'>
-				<ChatLayout defaultLayout={defaultLayout}  />
+				<ChatLayout defaultLayout={defaultLayout}  users={USERS}  />
 			</div>
 
 
