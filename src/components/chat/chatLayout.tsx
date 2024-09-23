@@ -4,6 +4,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "../ui/resi
 import { cn } from "@/lib/utils";
 import Sidebar from "../Sidebar";
 import {User} from "@/db/dummy";
+import MessageContainer from "./MessageContainer";
 
 interface ChatLayoutProps {
   defaultLayout: number[] | undefined;
@@ -68,7 +69,7 @@ const ChatLayout = ({ defaultLayout = [320, 480],users }: ChatLayoutProps) => {
         minSize={30}
         className="bg-[#001400]" // Dark green for the right panel
       >
-        right panel
+        <MessageContainer/>
       </ResizablePanel>
     </ResizablePanelGroup>
   );

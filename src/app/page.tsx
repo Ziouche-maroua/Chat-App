@@ -1,5 +1,5 @@
 import PreferencesTab from "@/components/PreferencesTab";
-import ChatLayout from "@/components/chat/chat-layout";
+import ChatLayout from "@/components/chat/chatLayout";
 import { cookies } from "next/headers";
 import { USERS} from "@/db/dummy";
 
