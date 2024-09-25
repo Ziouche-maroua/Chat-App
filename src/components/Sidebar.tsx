@@ -1,4 +1,4 @@
-import { User, USERS } from "@/db/dummy";
+import { User } from "@/db/dummy";
 import { ScrollArea } from "./ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
