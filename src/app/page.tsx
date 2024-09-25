@@ -1,17 +1,21 @@
 import PreferencesTab from "@/components/PreferencesTab";
 import ChatLayout from "@/components/chat/chatLayout";
+import { User , USERS } from "@/db/dummy";
+import { redis } from "@/lib/db";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { cookies } from "next/headers";
-import { USERS} from "@/db/dummy";
-import { Redis } from "@upstash/redis";
-import {redis} from "../lib/db"
+import { redirect } from "next/navigation";
+
 
 export default  async function  Home() {
   const layout = cookies().get("react-resizable-panels:layout");
 	const defaultLayout = layout ? JSON.parse(layout.value) : undefined;
 
-  await redis.set("foot",'foot')
-  const data= await redis.get("foot")
-  console.log(data)
+  const { isAuthenticated } = getKindeServerSession();
+	if (!(await isAuthenticated())) return redirect("/auth");
+
+	
+
 
   return (
     <main className='flex h-screen flex-col items-center justify-center p-4 md:px-24 py-32 gap-4'>

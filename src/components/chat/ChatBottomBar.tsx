@@ -40,7 +40,7 @@ const ChatBottomBar = () => {
 		}
 	};
 
-	
+	const isPending=false
 
 	return (
 		<div className='p-2 flex justify-between w-full items-center gap-2'>
@@ -121,7 +121,17 @@ const ChatBottomBar = () => {
 						variant={"ghost"}
 						size={"icon"}
 					>
-						
+
+{!isPending && (
+							<ThumbsUp
+								size={20}
+								className='text-muted-foreground'
+								
+								
+							/>
+						)}
+						{isPending && <Loader size={20} className='animate-spin' />}
+
 						
 					</Button>
 				)}

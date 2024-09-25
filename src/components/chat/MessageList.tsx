@@ -45,9 +45,15 @@ const MessageList = () => {
               )}
               {/* Display message content (text or image) */}
               {message.messageType === "text" ? (
-                <span className="bg-accent p-3 rounded-md max-w-xs">
-                  {message.content}
-                </span>
+               <span
+  className={cn(
+    "p-3 rounded-md max-w-xs  bg-accent", // Base styles
+    " text-black", // Light mode styles
+    "dark:text-white" // Dark mode styles
+  )}
+>
+  {message.content}
+</span>
               ) : (
                 <img
                   src={message.content}

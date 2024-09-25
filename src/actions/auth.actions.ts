@@ -7,7 +7,10 @@ export async function checkAuthStatus() {
 	const { getUser } = getKindeServerSession();
 	const user = await getUser();
 
+	
 	if (!user) return { success: false };
+	console.log("User Info: ", user);
+
 
 	// namespaces are really important to understand in redis
 	const userId = `user:${user.id}`;
@@ -29,3 +32,4 @@ export async function checkAuthStatus() {
 
 	return { success: true };
 }
+
