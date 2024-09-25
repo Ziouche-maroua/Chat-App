@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Sidebar from "../Sidebar";
 import {User} from "@/db/dummy";
 import MessageContainer from "./MessageContainer";
+import { useSelectedUser } from "@/store/useSelectedUser";
 
 interface ChatLayoutProps {
   defaultLayout: number[] | undefined;
@@ -14,6 +15,7 @@ interface ChatLayoutProps {
 const ChatLayout = ({ defaultLayout = [320, 480],users }: ChatLayoutProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const  { selectedUser, setSelectedUser}=useSelectedUser()
 
   useEffect(() => {
     const checkScreenWidth = () => {
@@ -69,7 +71,15 @@ const ChatLayout = ({ defaultLayout = [320, 480],users }: ChatLayoutProps) => {
         minSize={30}
         className="bg-[#001400]" // Dark green for the right panel
       >
-        <MessageContainer/>
+        {!selectedUser && (
+					<div className='flex justify-center items-center h-full w-full px-10'>
+						<div className='flex flex-col justify-center items-center gap-4'>
+							<img src='/logo.png' alt='Logo' className='w-full md:w-2/3 lg:w-1/2' />
+							<p className='text-muted-foreground text-center'>Click on a chat to view the messages</p>
+						</div>
+					</div>
+				)}
+				{selectedUser && <MessageContainer />}
       </ResizablePanel>
     </ResizablePanelGroup>
   );
