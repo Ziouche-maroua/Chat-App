@@ -6,6 +6,7 @@ import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useQuery } from "@tanstack/react-query";
 import { getMessages } from "@/actions/message.actions";
 import { useEffect, useRef } from "react";
+import MessageSkeleton  from "../skeletons/messageSkeleton";
 
 
 const MessageList = () => {
@@ -94,6 +95,14 @@ const MessageList = () => {
 							</div>
 						</motion.div>
 					))}
+
+          {isMessagesLoading && 
+          <>
+          <MessageSkeleton></MessageSkeleton>
+          <MessageSkeleton></MessageSkeleton>
+          <MessageSkeleton></MessageSkeleton>
+          
+          </>}
 
 			
 			</AnimatePresence>
