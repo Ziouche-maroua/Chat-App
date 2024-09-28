@@ -5,6 +5,7 @@ import { useSelectedUser } from "@/store/useSelectedUser";
 
 const ChatTopBar = () => {
 	const {selectedUser , setSelectedUser }= useSelectedUser()
+	console.log("Selected User:", selectedUser);
 	return (
 		<div className='w-full h-20 flex p-4 justify-between items-center border-b'>
 			<div className='flex items-center gap-2'>
@@ -15,7 +16,7 @@ const ChatTopBar = () => {
 						className='w-10 h-10 object-cover rounded-full'
 					/>
 				</Avatar>
-				<span className='font-medium'>{selectedUser?.name}</span>
+				<span className='font-medium'>{selectedUser?.name || ""}</span>
 			</div>
 
 			<div className='flex gap-2'>

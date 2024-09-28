@@ -22,6 +22,7 @@ const Sidebar = ({ isCollapsed, users }: SidebarProps) => {
 	const { setSelectedUser, selectedUser } = useSelectedUser();
 
 	const { user } = useKindeBrowserClient();
+	
 
 	return (
 		<div className='group relative flex flex-col h-full gap-4 p-2 data-[collapsed=true]:p-2  max-h-full overflow-auto bg-background'>
@@ -57,7 +58,7 @@ const Sidebar = ({ isCollapsed, users }: SidebarProps) => {
 									</div>
 								</TooltipTrigger>
 								<TooltipContent side='right' className='flex items-center gap-4'>
-									{user.name}
+									{user?.name}
 								</TooltipContent>
 							</Tooltip>
 						</TooltipProvider>
@@ -85,7 +86,7 @@ const Sidebar = ({ isCollapsed, users }: SidebarProps) => {
 								<AvatarFallback>{user.name[0]}</AvatarFallback>
 							</Avatar>
 							<div className='flex flex-col max-w-28'>
-								<span>{user.name}</span>
+								<span>{user?.name || ""	}</span>
 							</div>
 						</Button>
 					)
@@ -106,7 +107,7 @@ const Sidebar = ({ isCollapsed, users }: SidebarProps) => {
 								/>
 							</Avatar>
 							<p className='font-bold'>
-								{user?.given_name} {user?.family_name}
+							{user?.given_name || ""} {user?.family_name || ""}
 							</p>
 						</div>
 					)}

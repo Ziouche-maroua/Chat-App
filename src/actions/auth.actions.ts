@@ -25,9 +25,11 @@ export async function checkAuthStatus() {
 		await redis.hset(userId, {
 			id: user.id,
 			email: user.email,
-			name: `${user.given_name} ${user.family_name}`,
+			name: `${user.given_name || ""} ${user.family_name || ""}`, // Ensure this is being set correctly
 			image: image,
 		});
+		
+		
 	}
 
 	return { success: true };
