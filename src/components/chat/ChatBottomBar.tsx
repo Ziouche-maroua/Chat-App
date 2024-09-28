@@ -10,6 +10,7 @@ import { usePreferences } from "@/store/usePreferences";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { sendMessageAction } from "@/actions/message.actions";
 import { useSelectedUser } from "@/store/useSelectedUser";
+import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { Message } from "@/db/dummy";
@@ -64,10 +65,44 @@ const ChatBottomBar = () => {
 		}
 	};
 
+	useEffect(() => {
+		
+
+		const handleNewMessage = (data: { message: Message }) => {
+			queryClient.setQueryData(["messages", selectedUser?.id], (oldMessages: Message[]) => {
+				return [...oldMessages, data.message];
+			});
+
+			if (soundEnabled && data.message.senderId !== currentUser?.id) {
+				playNotificationSound();
+			}
+		};
+
+	
+		}
+	, [currentUser?.id, selectedUser?.id, queryClient, playNotificationSound, soundEnabled])	
 
 	return (
 		<div className='p-2 flex justify-between w-full items-center gap-2'>
-
+			{!message.trim() && (
+				<CldUploadWidget
+					signatureEndpoint={"/api/sign-cloudinary-params"}
+					onSuccess={(result, { widget }) => {
+						setImgUrl((result.info as CloudinaryUploadWidgetInfo).secure_url);
+						widget.close();
+					}}
+				>
+					{({ open }) => {
+						return (
+							<ImageIcon
+								size={20}
+								onClick={() => open()}
+								className='cursor-pointer text-muted-foreground'
+							/>
+						);
+					}}
+				</CldUploadWidget>
+			)}
 
 			<Dialog open={!!imgUrl}>
 				<DialogContent>
@@ -82,7 +117,7 @@ const ChatBottomBar = () => {
 						<Button
 							type='submit'
 							onClick={() => {
-								sendMessage({ content: imgUrl, messageType: "image", receiverId: selectedUser?.id! });
+								sendMessage({ content: imgUrl, messageType: "image", receiverId: selectedUser?.id!});
 								setImgUrl("");
 							}}
 						>
