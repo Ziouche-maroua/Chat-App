@@ -13,6 +13,7 @@ import { useSelectedUser } from "@/store/useSelectedUser";
 import { CldUploadWidget, CloudinaryUploadWidgetInfo } from "next-cloudinary";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import { pusherClient } from "@/lib/pusher";
 import { Message } from "@/db/dummy";
 
 const ChatBottomBar = () => {
@@ -66,7 +67,8 @@ const ChatBottomBar = () => {
 	};
 
 	useEffect(() => {
-		
+		const channelName = `${currentUser?.id}__${selectedUser?.id}`.split("__").sort().join("__");
+		const channel = pusherClient?.subscribe(channelName);
 
 		const handleNewMessage = (data: { message: Message }) => {
 			queryClient.setQueryData(["messages", selectedUser?.id], (oldMessages: Message[]) => {
@@ -78,9 +80,14 @@ const ChatBottomBar = () => {
 			}
 		};
 
-	
-		}
-	, [currentUser?.id, selectedUser?.id, queryClient, playNotificationSound, soundEnabled])	
+		channel.bind("newMessage", handleNewMessage);
+
+		// ! Absolutely important, otherwise the event listener will be added multiple times which means you'll see the incoming new message multiple times
+		return () => {
+			channel.unbind("newMessage", handleNewMessage);
+			pusherClient.unsubscribe(channelName);
+		};
+	}, [currentUser?.id, selectedUser?.id, queryClient, playNotificationSound, soundEnabled]);
 
 	return (
 		<div className='p-2 flex justify-between w-full items-center gap-2'>
@@ -117,7 +124,7 @@ const ChatBottomBar = () => {
 						<Button
 							type='submit'
 							onClick={() => {
-								sendMessage({ content: imgUrl, messageType: "image", receiverId: selectedUser?.id!});
+								sendMessage({ content: imgUrl, messageType: "image", receiverId: selectedUser?.id! });
 								setImgUrl("");
 							}}
 						>
