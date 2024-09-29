@@ -38,6 +38,7 @@ const ChatBottomBar = () => {
 
 	const playRandomKeyStrokeSound = () => {
 		const randomIndex = Math.floor(Math.random() * playSoundFunctions.length);
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		soundEnabled && playSoundFunctions[randomIndex]();
 	};
 
@@ -48,6 +49,7 @@ const ChatBottomBar = () => {
 	const handleSendMessage = () => {
 		if (!message.trim()) return;
 
+		// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 		sendMessage({ content: message, messageType: "text", receiverId: selectedUser?.id! });
 		setMessage("");
 
@@ -124,6 +126,7 @@ const ChatBottomBar = () => {
 						<Button
 							type='submit'
 							onClick={() => {
+								// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 								sendMessage({ content: imgUrl, messageType: "image", receiverId: selectedUser?.id! });
 								setImgUrl("");
 							}}
@@ -195,6 +198,7 @@ const ChatBottomBar = () => {
 								size={20}
 								className='text-muted-foreground'
 								onClick={() => {
+									// eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
 									sendMessage({ content: "👍", messageType: "text", receiverId: selectedUser?.id! });
 								}}
 							/>

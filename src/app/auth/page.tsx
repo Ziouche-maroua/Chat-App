@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import AuthButtons from "./AuthButtons";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
