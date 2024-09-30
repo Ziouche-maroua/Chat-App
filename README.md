@@ -18,4 +18,4 @@ Building this chat application has been an incredible journey, allowing me to ex
 
 Feel free to explore the code, contribute, or reach out with any questions!
 
-### Check out the live project: chatapp-self-eight.vercel.app
+### Check out the live project: https://chatapp-self-eight.vercel.app/
